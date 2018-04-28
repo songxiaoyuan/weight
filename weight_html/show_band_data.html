@@ -1,0 +1,115 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="./echarts.min.js"></script>
+	<script src="./jquery-3.2.1.min.js"></script>
+</head>
+
+<body style="width: 100%;height:100%;">
+<div>
+
+<div id="setting">
+</div>
+<br>
+<br>
+<br>
+<br>
+
+<div id="banddrawing" style="width: 1500px;height:400px;"></div>
+
+<script type="text/javascript">
+
+        var range_myChart = echarts.init(document.getElementById('banddrawing'));
+        times_array= []
+        data_array =[]
+
+
+      option = {
+          title : {
+              text: ''
+          },
+          tooltip : {
+              trigger: 'axis'
+          },
+          legend: {
+              data:['梦想曲线']
+          },
+          toolbox: {
+              show : true,
+              feature : {
+                  mark : {show: true},
+                  dataView : {show: true, readOnly: false},
+                  magicType : {show: true, type: ['line', 'bar']},
+                  restore : {show: true},
+                  saveAsImage : {show: true}
+              }
+          },
+          calculable : true,
+          xAxis : [
+              {
+                  type : 'category',
+                  data:[]
+                  // data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+              }
+          ],
+          yAxis : [
+              {
+                  type : 'value',
+                  min:70,
+                  max:80
+              }
+          ],
+          series : [
+              {
+                  name:'梦想曲线',
+                  type:'line',
+                  // data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+                  data:[]
+ 
+              }
+          ]
+      };
+                          
+    
+
+
+
+        // 根据传入的参数进行画图，
+        function startdraw(){
+
+          weight_data = [
+            ["20180427m",77.9],
+            ["20180427n",78.9]
+          ]
+          console.log(weight_data)
+          for (var i = 0; i < weight_data.length; i++) {
+                var linedata = weight_data[i]
+                var time = linedata[0]
+                var weight = Number(linedata[1])               
+                times_array.push(time)
+                data_array.push(weight)
+            } 
+
+
+            option.xAxis[0].data = times_array
+            option.series[0].data = data_array
+            range_myChart.setOption(option);
+        }
+
+
+
+
+        range_myChart.setOption(option);
+        startdraw()
+
+        // ema_diff_volume_drawing.setOption(ema_diff_volume_option)
+        // ema_diff_openinterest_drawing.setOption(ema_openinterest_option)
+
+         // 使用刚指定的配置项和数据显示图表。
+         
+</script>
+
+</div>
+
+</body>
+</html>
