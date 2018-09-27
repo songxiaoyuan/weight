@@ -21,7 +21,8 @@
 
         var range_myChart = echarts.init(document.getElementById('banddrawing'));
         times_array= []
-        data_array =[]
+        dream_data_array =[]
+        real_data_array =[]
 
 
       option = {
@@ -32,7 +33,7 @@
               trigger: 'axis'
           },
           legend: {
-              data:['梦想曲线']
+              data:['梦想曲线','实际曲线']
           },
           toolbox: {
               show : true,
@@ -55,13 +56,20 @@
           yAxis : [
               {
                   type : 'value',
-                  min:70,
+                  min:66,
                   max:80
               }
           ],
           series : [
               {
                   name:'梦想曲线',
+                  type:'line',
+                  // data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+                  data:[]
+ 
+              },
+              {
+                  name:'实际曲线',
                   type:'line',
                   // data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
                   data:[]
@@ -78,21 +86,24 @@
         function startdraw(){
 
           weight_data = [
-            ["20180427m",77.9],
-            ["20180427n",78.9]
+            ["20180922",74,74],
+            ["20180929",73.5,74],
           ]
           console.log(weight_data)
           for (var i = 0; i < weight_data.length; i++) {
                 var linedata = weight_data[i]
                 var time = linedata[0]
-                var weight = Number(linedata[1])               
+                var dream_weight = Number(linedata[1])               
+                var real_weight = Number(linedata[2])               
                 times_array.push(time)
-                data_array.push(weight)
+                dream_data_array.push(dream_weight)
+                real_data_array.push(real_weight)
             } 
 
 
             option.xAxis[0].data = times_array
-            option.series[0].data = data_array
+            option.series[0].data = dream_data_array
+            option.series[1].data = real_data_array
             range_myChart.setOption(option);
         }
 
